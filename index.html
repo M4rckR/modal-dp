@@ -20,9 +20,9 @@
 .modal-content {
     background-color: white;
     margin: auto;
-    padding: 20px;
+    padding: 24px;
     border: 1px solid #888;
-    width: 360px;
+    width: 320px;
     position: relative;
     border-radius: 16px;
 }
@@ -36,11 +36,11 @@ p,label {
 }
 
 .close {
-    color: #aaa;
+    color: #20A3FF;
     position: absolute;
-    right: 10px;
-    top: 5px;
-    font-size: 28px;
+    right: 24px;
+    top: 12px;
+    font-size: 36px;
     font-weight: bold;
     cursor: pointer;
 }
@@ -52,13 +52,15 @@ p,label {
     font-weight: bolder;
     font-style: normal;
     line-height: 28px;
+    padding-top: 24px;
 }
 
 .banbif-modal-paragraph {
     color: #004470;
-    font-size: 16px;
+    font-size: 14px;
     font-style: normal;
-    line-height: 20px;
+    line-height: 18px;
+    margin-bottom: 24px;
 }
 
 
@@ -66,6 +68,7 @@ p,label {
     display: flex;
     flex-direction: column;
     gap: 18px;  	
+    margin-bottom: 0;
 }
 
 .banbif-input-box {
@@ -91,6 +94,8 @@ p,label {
     line-height: 18px;
     color: rgba(0, 68, 112, 0.50);
     left: 12px;
+    transition: all 0.3s;
+    background-color: white;
 } 
 
 .banbif-button-form {
@@ -115,6 +120,17 @@ p,label {
     margin: 0;
 }
 
+.banbif-form-radio {
+    display: flex;
+    justify-content: space-between;
+}
+
+.banbif-form-radio label {
+    font-size: 14px;
+    line-height: 18px;
+    color: #00447080;
+}
+
 </style>
 
 <div>
@@ -135,7 +151,18 @@ p,label {
                         <input id="apellido-input" type="text">
                     </div>
                     <p class="banbif-text-low">¿Cómo deseas que te contactemos?</p>
+                    <div class="banbif-form-radio">
+                        <div>
+                            <input type="radio" id="contacto-telefono" name="contacto" value="telefono">
+                            <label for="contacto-telefono">WhatsApp</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="contacto-email" name="contacto" value="email">
+                            <label for="contacto-email">Llamada telefónica</label>
+                        </div>
+                    </div>
                     <p class="banbif-text-low">Nos estaremos contactando en las próximas horas dentro del horario de lunes a sábado de 8am a 7pm.</p>
+                    
                     <button type="submit" class="banbif-button-form">Solicitar asesoría</button>
                 </form>
             </div>
@@ -175,7 +202,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     nombreInput.addEventListener('focus', () => {
         if(nombreInput.value === '') {
-            labelNombre.style.display = 'none';
+            labelNombre.style.top = '0';
+        }
+    });
+
+    nombreInput.addEventListener('blur', () => {
+        if(nombreInput.value === '') {
+            labelNombre.style.top = '50%';
+        }
+    });
+
+    apellidoInput.addEventListener('focus', () => {
+        if(apellidoInput.value === '') {
+            labelApellido.style.top = '0';
+        }
+    });
+
+    apellidoInput.addEventListener('blur', () => {
+        if(apellidoInput.value === '') {
+            labelApellido.style.top = '50%';
         }
     });
 });
