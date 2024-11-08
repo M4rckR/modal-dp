@@ -22,15 +22,16 @@
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 400px;
+    width: 360px;
     position: relative;
+    border-radius: 16px;
 }
 
 h1,h2,h3,h4,h5,h6 {
     font-family: 'Open Sans', sans-serif;
 }
 
-p {
+p,label {
     font-family: 'Lato', sans-serif;
 }
 
@@ -55,14 +56,65 @@ p {
 
 .banbif-modal-paragraph {
     color: #004470;
+    font-size: 16px;
+    font-style: normal;
+    line-height: 20px;
 }
 
 
 .banbif-form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 18px;  	
 }
+
+.banbif-input-box {
+    position: relative;
+}
+.banbif-input-box input{
+    width: 100%;
+    font-size: 14px;
+    line-height: 18px;
+    border: 1px solid #DEE2E6;
+    outline: none;
+    border-radius: 8px;
+    padding: 12px;
+    height: 46px;
+    color: #004470;
+}
+
+.banbif-input-box label{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    line-height: 18px;
+    color: rgba(0, 68, 112, 0.50);
+    left: 12px;
+} 
+
+.banbif-button-form {
+    border-radius: 22px;
+    background: linear-gradient(98deg, #A281E5 0.01%, #8D4EF9 24.85%, #4764FF 70.51%, #1CA4FF 94.28%);
+    display: inline-flex;
+    padding: 12px 48px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 20px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.banbif-text-low {
+    color: rgba(0, 68, 112, 0.50);
+    font-size: 14px;
+    line-height: 18px;
+    margin: 0;
+}
+
 </style>
 
 <div>
@@ -74,13 +126,21 @@ p {
                     personalizada</h3>
                 <p class="banbif-modal-paragraph">Resuelve tus dudas sobre como rentabilizar tus ahorros.</p>
                 <form class="banbif-form">
-                    <input type="text" placeholder="Nombres">
-                    <input type="text" placeholder="Apellidos">
+                    <div class="banbif-input-box">
+                        <label id="label-nombre" for="nombre-input">Nombres</label>
+                        <input id="nombre-input" type="text">
+                    </div>
+                    <div class="banbif-input-box">
+                        <label id="label-apellido" for="apellido-input">Apellidos</label>
+                        <input id="apellido-input" type="text">
+                    </div>
+                    <p class="banbif-text-low">¿Cómo deseas que te contactemos?</p>
+                    <p class="banbif-text-low">Nos estaremos contactando en las próximas horas dentro del horario de lunes a sábado de 8am a 7pm.</p>
+                    <button type="submit" class="banbif-button-form">Solicitar asesoría</button>
                 </form>
             </div>
         </div>
     </div>
-    
     <a href="#" id="openModal">Abrir Modal</a>
 </div>
 
@@ -89,6 +149,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('myModal');
     const openModal = document.getElementById('openModal');
     const closeBtn = document.querySelector('.close');
+    const labelNombre = document.getElementById('label-nombre');
+    const labelApellido = document.getElementById('label-apellido');
+    const nombreInput = document.getElementById('nombre-input');
+    const apellidoInput = document.getElementById('apellido-input');
+
+    
+
     modal.style.display = 'block';
 
     openModal.addEventListener('click', (e) => {
@@ -103,6 +170,12 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
             modal.style.display = 'none';
+        }
+    });
+
+    nombreInput.addEventListener('focus', () => {
+        if(nombreInput.value === '') {
+            labelNombre.style.display = 'none';
         }
     });
 });
