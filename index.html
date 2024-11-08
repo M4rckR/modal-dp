@@ -1,0 +1,109 @@
+
+
+
+
+<style>
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 400px;
+    position: relative;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Open Sans', sans-serif;
+}
+
+p {
+    font-family: 'Lato', sans-serif;
+}
+
+.close {
+    color: #aaa;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.banbif-modal-title {
+    font-size: 24px;
+    text-align: center;
+    color: #20A6FF;
+    font-weight: bolder;
+    font-style: normal;
+    line-height: 28px;
+}
+
+.banbif-modal-paragraph {
+    color: #004470;
+}
+
+
+.banbif-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+</style>
+
+<div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div>
+                <h3 class="banbif-modal-title">Recibe una asesoría <br>
+                    personalizada</h3>
+                <p class="banbif-modal-paragraph">Resuelve tus dudas sobre como rentabilizar tus ahorros.</p>
+                <form class="banbif-form">
+                    <input type="text" placeholder="Nombres">
+                    <input type="text" placeholder="Apellidos">
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <a href="#" id="openModal">Abrir Modal</a>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('myModal');
+    const openModal = document.getElementById('openModal');
+    const closeBtn = document.querySelector('.close');
+    modal.style.display = 'block';
+
+    openModal.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal.style.display = 'block';
+    });
+    
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+});
+</script>
