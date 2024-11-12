@@ -1,230 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            backdrop-filter: blur(5px);
+            background-color: rgba(0,0,0,0.4);
+            font-family: "Lato", sans-serif;
+        }
+
+        p {
+            font-family: "Lato", sans-serif;
+        }
+
+        .banbif-form-radio input[type="radio"] {
+        appearance: none;
+        -webkit-appearance: none; 
+        -moz-appearance: none; 
+        }
+
+        .banbif-form-radio input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            border: 1.667px solid #D7D7D7;
+            cursor: pointer;
+            position: relative;
+            outline: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            margin: 0;
+        }
+
+        .banbif-form-radio input[type="radio"]::before {
+            content: "";
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute; 
+            top: 50%;
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            transition: background-color 0.3s ease; 
+        }
+
+        .banbif-form-radio input[type="radio"]:checked {
+            background-color: #20A6FF; /* Color de fondo del círculo externo */
+            border-color: #20A6FF; /* Color del borde del círculo externo */
+        }
+
+        input[type="radio"]:checked::before {
+            background-color: #fff; 
+        }
 
 
+        .modal-content {
+            background-color: white;
+            margin: auto;
+            padding: 24px;
+            border: 1px solid #888;
+            width: 100%;
+            max-width: 380px;
+            position: relative;
+            border-radius: 16px;
+        }
+
+        .close {
+            width: 24px;
+            height: 24px;
+            background-image: url('https://banbif.com.pe/Portals/0/home/personas/img/close-blue.svg');
+            background-size: cover;
+            position: absolute;
+            right: 24px;
+            top: 24px;
+            cursor: pointer;
+        }
+
+        .banbif-modal-title {
+            font-size: 24px;
+            text-align: center;
+            color: #20A6FF;
+            font-weight: 700;
+            font-style: normal;
+            line-height: 28px;
+            padding-top: 24px;
+        }
+
+        .banbif-modal-paragraph {
+            color: #004470;
+            font-size: 14px;
+            font-style: normal;
+            line-height: 18px;
+            margin-bottom: 24px;
+        }
 
 
-<style>
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    backdrop-filter: blur(5px);
-    background-color: rgba(0,0,0,0.4);
-}
+        .banbif-form {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;  	
+            margin-bottom: 0;
+        }
 
-.banbif-form-radio input[type="radio"] {
-  appearance: none;
-  -webkit-appearance: none; 
-  -moz-appearance: none; 
-}
+        .banbif-input-box {
+            position: relative;
+        }
+        .banbif-form-input{
+            width: 100%;
+            font-size: 14px;
+            line-height: 18px;
+            border: 1px solid #DEE2E6;
+            outline: none;
+            border-radius: 8px;
+            padding: 12px;
+            height: 46px;
+            color: #004470;
+        }
 
-.banbif-form-radio input[type="radio"] {
-    width: 20px;
-    height: 20px;
-    background-color: white;
-    border-radius: 50%;
-    border: 1.667px solid #D7D7D7;
-    cursor: pointer;
-    position: relative;
-    outline: none;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    margin: 0;
-}
-
-.banbif-form-radio input[type="radio"]::before {
-    content: "";
-    width: 10px;
-    height: 10px;
-    background-color: white;
-    border-radius: 50%;
-    position: absolute; 
-    top: 50%;
-    left: 50%; 
-    transform: translate(-50%, -50%); 
-    transition: background-color 0.3s ease; 
-}
-
-.banbif-form-radio input[type="radio"]:checked {
-    background-color: #007bff; /* Color de fondo del círculo externo */
-    border-color: #007bff; /* Color del borde del círculo externo */
-}
-
-input[type="radio"]:checked::before {
-    background-color: #fff; 
-}
+        .input-label-nombre,
+        .input-label-apellido {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            line-height: 18px;
+            color: rgba(0, 68, 112, 0.50);
+            left: 12px;
+            transition: all 0.3s;
+            background-color: white;
+            padding: 0 2px;
+            cursor: text;
+            user-select: none;          /* Estándar */
+            -webkit-user-select: none;  /* Safari */
+            -moz-user-select: none;     /* Firefox */
+            -ms-user-select: none;    /* IE 10+ */
+        } 
 
 
-.modal-content {
-    background-color: white;
-    margin: auto;
-    padding: 24px;
-    border: 1px solid #888;
-    width: 330px;
-    position: relative;
-    border-radius: 16px;
-}
+        .banbif-button-form {
+            border-radius: 22px;
+            background: linear-gradient(98deg, #A281E5 0.01%, #8D4EF9 24.85%, #4764FF 70.51%, #1CA4FF 94.28%);
+            display: inline-flex;
+            padding: 12px 48px;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            font-size: 16px;
+            line-height: 20px;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
 
-h1,h2,h3,h4,h5,h6 {
-    font-family: 'Open Sans', sans-serif;
-}
+        .banbif-text-low {
+            color: rgba(0, 68, 112, 0.50);
+            font-size: 14px;
+            line-height: 18px;
+            margin: 0;
+        }
 
-p,label {
-    font-family: 'Lato', sans-serif;
-}
+        .banbif-form-radio {
+            display: flex;
+            justify-content: space-between;
+        }
 
-.close {
-    width: 24px;
-    height: 24px;
-    background-image: url('https://banbif.com.pe/Portals/0/home/personas/img/close-blue.svg');
-    background-size: cover;
-    position: absolute;
-    right: 24px;
-    top: 24px;
-    cursor: pointer;
-}
+        .banbif-form-radio label {
+            font-size: 14px;
+            line-height: 18px;
+            color: #00447080;
+        }
 
-.banbif-modal-title {
-    font-size: 24px;
-    text-align: center;
-    color: #20A6FF;
-    font-weight: bolder;
-    font-style: normal;
-    line-height: 28px;
-    padding-top: 24px;
-}
+        .banbif-captcha img{
+            width: 100%;
+            height: 62px;
+            object-fit: cover;
+        }
 
-.banbif-modal-paragraph {
-    color: #004470;
-    font-size: 14px;
-    font-style: normal;
-    line-height: 18px;
-    margin-bottom: 24px;
-}
+        .banbif-ratio-box {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
 
+        .banbif-border-error {
+            border-color:  #f87777;
+        }
 
-.banbif-form {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;  	
-    margin-bottom: 0;
-}
+        .banbif-text-error {
+            color: #f87777;
+            font-size: 12px;
+            line-height: 16px;
+            margin-bottom: 0;
+            margin-top: 4px;
+            padding-left: 4px;
+        }
+        .banbif-none {
+            display: none;
+        }
 
-.banbif-input-box {
-    position: relative;
-}
-.banbif-form-input{
-    width: 100%;
-    font-size: 14px;
-    line-height: 18px;
-    border: 1px solid #DEE2E6;
-    outline: none;
-    border-radius: 8px;
-    padding: 12px;
-    height: 46px;
-    color: #004470;
-}
+        @media(max-width: 407px){
+            .modal-content {
+                max-width: 360px;
+            }
+        }
+        @media(max-width: 383px){
+            .modal-content {
+                max-width: 340px;
+            }
+        }
 
-.input-label-nombre,
-.input-label-apellido {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 14px;
-    line-height: 18px;
-    color: rgba(0, 68, 112, 0.50);
-    left: 12px;
-    transition: all 0.3s;
-    background-color: white;
-    padding: 0 2px;
-    cursor: text;
-    user-select: none;          /* Estándar */
-    -webkit-user-select: none;  /* Safari */
-    -moz-user-select: none;     /* Firefox */
-    -ms-user-select: none;    /* IE 10+ */
-} 
+        .banbif-text-low {
+            margin-top: 10px;
+            color: #00447080;
+            font-size: 14px;
+            line-height: 18px;
+        }
 
+        .banbif-text-low a{
+            color: #20A6FF;
+        }
 
-.banbif-button-form {
-    border-radius: 22px;
-    background: linear-gradient(98deg, #A281E5 0.01%, #8D4EF9 24.85%, #4764FF 70.51%, #1CA4FF 94.28%);
-    display: inline-flex;
-    padding: 12px 48px;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    font-size: 16px;
-    line-height: 20px;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-.banbif-text-low {
-    color: rgba(0, 68, 112, 0.50);
-    font-size: 14px;
-    line-height: 18px;
-    margin: 0;
-}
-
-.banbif-form-radio {
-    display: flex;
-    justify-content: space-between;
-}
-
-.banbif-form-radio label {
-    font-size: 14px;
-    line-height: 18px;
-    color: #00447080;
-}
-
-.banbif-captcha img{
-    width: 100%;
-    height: 62px;
-    object-fit: cover;
-}
-
-.banbif-ratio-box {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-}
-
-.banbif-border-error {
-    border-color:  #f87777;
-}
-
-.banbif-text-error {
-    color: #f87777;
-    font-size: 12px;
-    line-height: 16px;
-    margin-bottom: 0;
-    margin-top: 4px;
-    padding-left: 4px;
-}
-.banbif-none {
-    display: none;
-}
-
-@media(max-width: 417px) {
-    .modal-content {
-        width: 300px;
-    }
-}
-@media(max-width: 372px) {
-    .modal-content {
-        width: 280px;
-    }
-}
-
-</style>
-
-
-<div>
+    </style>
+</head>
+<body>
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close"></span>
@@ -264,100 +282,116 @@ p,label {
             </div>
         </div>
     </div>
-    <a href="#" id="openModal">Abrir Modal</a>
-</div>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const modal = document.getElementById('myModal');
-    const openModal = document.getElementById('openModal');
-    const closeBtn = document.querySelector('.close');
-    const labelNombre = document.getElementById('label-nombre');
-    const labelApellido = document.getElementById('label-apellido');
-    const nombreInput = document.getElementById('nombre-input');
-    const apellidoInput = document.getElementById('apellido-input');
-    const form = document.querySelector('.banbif-form');
-    const errorText = document.querySelector('.banbif-text-error');
-
-    let labelActivo = false;
-    let isError = false;
+    <!-- Este ancla dispara el Modal -->
+     <!-- Ademas este texto es el que se debe incluir -->
+      <!-- ____________________________________________________ -->
+<style>
+    .banbif-text-low {
+        margin-top: 10px;
+        color: #00447080;
+        font-size: 14px;
+        line-height: 18px;
+    }
+</style>
+    <p class="banbif-text-low">Si deseas recibir asesoría personalizada para saber más de la cuenta Depósito a Plazo y cómo abrirla, ingresa <a href="#" id="openModal">aquí</a></p>
     
-    modal.style.display = 'block';
 
-    // Funciones de utilidad
-    const actualizarEstadoLabel = () => {
-        if (isError && labelActivo) {
-            labelNombre.style.color = '#f87777';
-        } else {
-            labelNombre.style.color = 'rgba(0, 68, 112, 0.50)';
-        }
-    };
-
-    const validarNombre = () => {
-        if (nombreInput.value.trim() === '') {
-            nombreInput.classList.add('banbif-border-error');
-            errorText.classList.remove('banbif-none');
-            isError = true;
-        } else {
-            nombreInput.classList.remove('banbif-border-error');
-            errorText.classList.add('banbif-none');
-            isError = false;
-        }
-        actualizarEstadoLabel();
-    };
-
-    // Event Listeners
-    openModal.addEventListener('click', (e) => {
-        e.preventDefault();
+    <script>document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('myModal');
+        const openModal = document.getElementById('openModal');
+        const closeBtn = document.querySelector('.close');
+        const labelNombre = document.getElementById('label-nombre');
+        const labelApellido = document.getElementById('label-apellido');
+        const nombreInput = document.getElementById('nombre-input');
+        const apellidoInput = document.getElementById('apellido-input');
+        const form = document.querySelector('.banbif-form');
+        const errorText = document.querySelector('.banbif-text-error');
+    
+        let labelActivo = false;
+        let isError = false;
+        
         modal.style.display = 'block';
-    });
     
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
+        // Funciones de utilidad
+        const actualizarEstadoLabel = () => {
+            if (isError && labelActivo) {
+                labelNombre.style.color = '#f87777';
+            } else {
+                labelNombre.style.color = 'rgba(0, 68, 112, 0.50)';
+            }
+        };
+    
+        const validarNombre = () => {
+            if (nombreInput.value.trim() === '') {
+                nombreInput.classList.add('banbif-border-error');
+                errorText.classList.remove('banbif-none');
+                isError = true;
+            } else {
+                nombreInput.classList.remove('banbif-border-error');
+                errorText.classList.add('banbif-none');
+                isError = false;
+            }
+            actualizarEstadoLabel();
+        };
+    
+        // Event Listeners
+        openModal.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.style.display = 'block';
+        });
 
-    window.addEventListener('click', (event) => {
-        if (event.target === modal) {
+        // setTimeout(() => {
+        //     modal.style.display = 'none';
+        // }, 5000);
+        
+        closeBtn.addEventListener('click', () => {
             modal.style.display = 'none';
-        }
-    });
-
-    nombreInput.addEventListener('focus', () => {
-        labelActivo = true;
-        labelNombre.style.top = '0';
-        actualizarEstadoLabel();
-    });
-
-    nombreInput.addEventListener('blur', () => {
-        if(nombreInput.value === '') {
-            labelActivo = false;
-            labelNombre.style.top = '50%';
-        }
-        actualizarEstadoLabel();
-    });
-
-    nombreInput.addEventListener('input', () => {
-        validarNombre();
-    });
-
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        validarNombre();
-    });
-
-    // Manejo del campo apellido
-    apellidoInput.addEventListener('focus', () => {
-        labelActivo = true;
-        if(apellidoInput.value === '') {
-            labelApellido.style.top = '0';
-        }
-    });
-
-    apellidoInput.addEventListener('blur', () => {
-        if(apellidoInput.value === '') {
-            labelActivo = false;
-            labelApellido.style.top = '50%';
-        }
-    });
-});
-</script>
+        });
+    
+        window.addEventListener('click', (event) => {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    
+        nombreInput.addEventListener('focus', () => {
+            labelActivo = true;
+            labelNombre.style.top = '0';
+            actualizarEstadoLabel();
+        });
+    
+        nombreInput.addEventListener('blur', () => {
+            if(nombreInput.value === '') {
+                labelActivo = false;
+                labelNombre.style.top = '50%';
+            }
+            actualizarEstadoLabel();
+        });
+    
+        nombreInput.addEventListener('input', () => {
+            validarNombre();
+        });
+    
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            validarNombre();
+        });
+    
+        // Manejo del campo apellido
+        apellidoInput.addEventListener('focus', () => {
+            labelActivo = true;
+            if(apellidoInput.value === '') {
+                labelApellido.style.top = '0';
+            }
+        });
+    
+        apellidoInput.addEventListener('blur', () => {
+            if(apellidoInput.value === '') {
+                labelActivo = false;
+                labelApellido.style.top = '50%';
+            }
+        });
+    });</script>
+</body>
+</html>
